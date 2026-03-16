@@ -1,0 +1,547 @@
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+@font-face {
+    font-family: 'HaasGrot';
+    src: url('fonts/AlteHaasGroteskBold.ttf') format('woff2');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'HaasGrot';
+    src: url('fonts/AlteHaasGroteskLight.ttf') format('woff2');
+    font-weight: light;
+}
+
+@font-face {
+    font-family: 'ExclusiveEditorial';
+    src: url('fonts/DR\ Exclusive\ Editorial.ttf') format('woff2');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'CinzelDeco';
+    src: url('fonts/CinzelDecorative-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    font-family: 'HaasGrot', sans-serif;
+}
+
+.editorial-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+.background-layers {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+.bg-slide {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.bg-slide.active { opacity: 1; }
+
+.interface-overlay {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px;
+}
+
+.logo-spotify { width: 120px; }
+
+.main-content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.album-list { list-style: none; }
+
+.album-item {
+    display: flex;
+    align-items: baseline; 
+    gap: 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+    color: #fff;
+}
+
+.album-item .title {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 3.8rem;
+    font-weight: bold;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+}
+
+.album-item .artist {
+    font-family: 'ExclusiveEditorial', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+.album-item[data-target="card-redmoon"].active {
+    color: #1DB954;
+    cursor: pointer; 
+    user-select: none; 
+    transition: transform 0.2s ease; 
+}
+
+.album-item:not([data-target="card-redmoon"]).active {
+    color: #1DB954;
+}
+
+.album-item:not(.active) {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.devices-panel { text-align: left; max-width: 320px; }
+.logo-mini { width: 100px; margin-bottom: 10px; }
+.device-headline { 
+    font-size: 2rem; 
+    font-weight: bold; 
+    margin-bottom: 20px;
+}
+.devices-image { width: 100%; }
+
+.devices-section {
+    background-color: #000;
+    height: 100vh; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8%;
+    overflow: hidden;
+}
+
+.devices-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.artist-showcase {
+    flex: 1;
+}
+
+.artist-bw {
+    width: 100%;
+    max-width: 700px; 
+    height: auto;
+    display: block;
+}
+
+.devices-strip {
+    width: 100%;
+    background-color: #000;
+    line-height: 0; 
+    display: flex;
+    justify-content: center;
+}
+
+.full-strip-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 500px; 
+    object-fit: cover;
+}
+
+.caroline-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 8%;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.caroline-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bg-image-html {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.caroline-bg-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15); 
+}
+
+.caroline-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    text-align: center;
+}
+
+.editorial-title {
+    font-family: 'CinzelDeco', serif;
+    font-size: 3.5rem;
+    color: #ff4d4d; 
+    line-height: 1.0;
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-transform: uppercase; 
+}
+
+.editorial-subtitle {
+    font-family: 'ExclusiveEditorial', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.btn-pill {
+    display: inline-block;
+    background-color: #FF5557;
+    color: #000;
+    font-family: 'HaasGrot', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 45px;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.image-credit {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-family: 'arial', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 2;
+}
+
+.remix-section {
+    background-color: #8ace00; 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+}
+
+.remix-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+}
+
+.remix-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.remix-img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+}
+
+.remix-caption {
+    font-family: 'arial', sans-serif;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    color: #000;
+    letter-spacing: 0.1em;
+}
+
+.remix-text-content {
+    color: #000;
+    text-align: left;
+}
+
+.remix-title {
+    font-family: 'arial', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.remix-subtitle {
+    font-family: 'arial', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.remix-description {
+    font-family: 'arial', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    max-width: 450px;
+    margin-bottom: 40px;
+}
+
+.btn-ver-mais-black {
+    display: inline-block;
+    background-color: #000;
+    color: #8ace00;
+    font-family: 'arial', sans-serif;
+    text-decoration: none;
+    padding: 15px 40px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn-ver-mais-black:hover {
+    transform: translateX(10px);
+}
+
+.tyler-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 60px; 
+    background-color: #000;
+    overflow: hidden;
+}
+
+.tyler-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bg-tyler {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tyler-bg-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 60%);
+}
+
+.tyler-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+    text-align: left; 
+}
+
+.tyler-title {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #1DB954; 
+    line-height: 1;
+    margin-bottom: 15px;
+    letter-spacing: -0.02em;
+}
+
+.tyler-subtitle {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 35px;
+    line-height: 1.2;
+}
+
+.btn-ver-mais-green {
+    display: inline-block;
+    background-color: #1DB954;
+    color: #fff;
+    font-family: 'HaasGrot', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 40px;
+    border-radius: 10px; 
+    font-size: 1.1rem;
+    transition: 0.3s ease;
+}
+
+.btn-ver-mais-green:hover {
+    background-color: #179443;
+    transform: scale(1.05);
+}
+
+.top-credit {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+
+.shop-section {
+    background-color: #ffffff;
+    padding: 60px 8%;
+    color: #000;
+}
+
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.shop-title {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.logo-black {
+    width: 100px;
+}
+
+.cds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 80px 40px; 
+    justify-items: center;
+}
+
+.cd-item {
+    text-align: center;
+    max-width: 300px;
+}
+
+.cd-thumb {
+    margin-bottom: 20px;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15));
+    transition: transform 0.3s ease;
+}
+
+.cd-thumb:hover {
+    transform: translateY(-5px);
+}
+
+.cd-img {
+    width: 100%;
+    height: auto;
+}
+
+.cd-name {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.cd-price {
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.main-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; 
+    background-color: #e0e0e0; 
+    display: flex;
+    align-items: center;
+    z-index: 1000; 
+    padding: 0 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.1); 
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%; 
+}
+
+.logo-img-nav {
+    height: 25px; 
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px; 
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-family: 'HaasGrot', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+    opacity: 0.6;
+}
+
+.editorial-container {
+    padding-top: 60px; 
+}
