@@ -1,5 +1,5 @@
 const clientId = "170a4a8ba1944e80968c081a849e6c8f";
-const redirectUri = "http://127.0.0.1:5500/stats.html";
+const redirectUri = "https://spotifytestfront.vercel.app/stats.html";
 const scopes = "user-top-read user-read-private";
 
 const urlParams = new URLSearchParams(window.location.search);
